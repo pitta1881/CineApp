@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { View } from "react-native";
 import {StyleSheet} from 'react-native';
 import Modal from '../components/Modals/ConfirmModal';
-import MovieList from '../components/MovieList';
+import FavoriteList from '../components/FavoriteList';
 import AddMovie from '../components/AddMovie';
 
 export default function Favorites(){
     const [inputName, setInputName] = useState('');
     const [inputError, setInputError] = useState('');
-    const [movieList, setMovieList] = useState([]);
+    const [favoriteList, setFavoriteList] = useState([]);
 
     const [movieSelected, setMovieSelected] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
@@ -21,8 +21,8 @@ export default function Favorites(){
 
     const handleAddMovie = () => {
         if (inputName) {
-        setMovieList([
-            ...movieList,
+        setFavoriteList([
+            ...favoriteList,
             {
             id: Math.random().toString(),
             name: inputName,
@@ -42,14 +42,14 @@ export default function Favorites(){
 
     const handleConfirmDelete = () => {
         const id = movieSelected.id;
-        setMovieList(movieList.filter(movie => movie.id !== id));
+        setFavoriteList(favoriteList.filter(movie => movie.id !== id));
         setModalVisible(false);
         setMovieSelected({});
     }
 
     const handleConfirmFinish = () => {
         const id = movieSelected.id;
-        setMovieList(movieList.map(movie => {
+        setFavoriteList(favoriteList.map(movie => {
         if (movie.id === id){
             movie.finish = true
         }
@@ -60,7 +60,7 @@ export default function Favorites(){
     }
 
     const handleModal = (id,deleteOrFinish) => {
-        setMovieSelected(movieList.find(movie => movie.id === id));
+        setMovieSelected(favoriteList.find(movie => movie.id === id));
         setWhichModal(deleteOrFinish);
         setModalVisible(true);
     }
@@ -73,8 +73,8 @@ export default function Favorites(){
             inputError={inputError}
             inputText={inputName}
             />
-            <MovieList
-            movieList={movieList}
+            <FavoriteList
+            favoriteList={favoriteList}
             handleModal={handleModal}
             />
             <Modal

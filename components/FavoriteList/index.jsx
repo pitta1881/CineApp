@@ -2,13 +2,13 @@ import React from 'react';
 import {
   FlatList,
 } from 'react-native';
-import ListMovies from './ListMovies';
+import ListFavorites from './ListFavorites';
 
-const List = ({ movieList, handleModal }) => {
+const List = ({ favoriteList, handleModal }) => {
   return (
     <FlatList
-      data={movieList}
-      renderItem={(data) => <ListMovies handleModal={handleModal} data={data} />}
+      data={favoriteList}
+      renderItem={(data) => <ListFavorites handleModal={handleModal} data={data} />}
       keyExtractor={item => item.id}
     />
   );
