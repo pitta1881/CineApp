@@ -1,106 +1,55 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
+  SafeAreaView,
   StyleSheet,
-  View,
 } from 'react-native';
-import Modal from './components/Modals/ConfirmModal';
-import MovieList from './components/MovieList';
-import AddMovie from './components/AddMovie';
+import {
+  useFonts,
+  Inter_900Black,
+} from '@expo-google-fonts/inter';
+import AppLoading from 'expo-app-loading';
+
+import Header from './components/Header/Header';
+import Home from './screens/Home';
+import Favorites from './screens/Favorites';
+import FooterActions from './components/Footer/FooterActions';
+import Estrenos from './screens/Estrenos';
 
 export default function App() {
-  const [inputName, setInputName] = useState('');
-  const [inputError, setInputError] = useState('');
-  const [movieList, setMovieList] = useState([]);
+  const [screen, setScreen] = useState('Home')
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+  });
 
-  const [movieSelected, setMovieSelected] = useState({});
-  const [modalVisible, setModalVisible] = useState(false);
-  const [whichModal, setWhichModal] = useState();
-
-  const handleChangeName = (text) => {
-    setInputName(text);
-    setInputError('');
-  };
-
-  const handleAddMovie = () => {
-    if (inputName) {
-      setMovieList([
-        ...movieList,
-        {
-          id: Math.random().toString(),
-          name: inputName,
-          finish: false
-        },
-      ]);
-      setInputName('');
-      setInputError('');
-    } else {
-      setInputError('Required');
-    }
+  const handleSwitchScreen = (newScreen) =>{
+    setScreen(newScreen);
   }
-
-  const handleCloseModal = () => {
-    setModalVisible(false);
-  }
-
-  const handleConfirmDelete = () => {
-    const id = movieSelected.id;
-    setMovieList(movieList.filter(movie => movie.id !== id));
-    setModalVisible(false);
-    setMovieSelected({});
-  }
-
-  const handleConfirmFinish = () => {
-    const id = movieSelected.id;
-    setMovieList(movieList.map(movie => {
-      if (movie.id === id){
-        movie.finish = true
-      }
-      return movie; 
-    }));
-    setModalVisible(false);
-    setMovieSelected({});
-  }
-
-  const handleModal = (id,deleteOrFinish) => {
-    setMovieSelected(movieList.find(movie => movie.id === id));
-    setWhichModal(deleteOrFinish);
-    setModalVisible(true);
+  
+  if (!fontsLoaded) {
+    return <AppLoading />
   }
 
   return (
-    <View style={[styles.screen, modalVisible ? styles.modalOpen : '']}>
-      <AddMovie
-        handleChangeName={handleChangeName}
-        handleAddMovie={handleAddMovie}
-        inputError={inputError}
-        inputText={inputName}
-      />
-      <MovieList
-        movieList={movieList}
-        handleModal={handleModal}
-      />
-      <Modal
-        modalVisible={modalVisible}
-        handleCloseModal = {handleCloseModal}
-        handleConfirmDelete={handleConfirmDelete}
-        handleConfirmFinish={handleConfirmFinish}
-        movieSelected={movieSelected}
-        whichModal={whichModal}
-      />
-      <StatusBar style="auto" />
-    </View>
+     <SafeAreaView style={styles.container}>
+      <Header title="CineApp"/>
+      {
+        screen === 'Home' 
+        ? <Home />
+        : screen === 'Favoritos' 
+        ? <Favorites /> 
+        : screen === 'Estrenos' 
+        ? <Estrenos /> : ''
+      }
+      <FooterActions activeScreen={screen} handleSwitchScreen={handleSwitchScreen}/>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    padding: 30,
-    backgroundColor: '#F0F0F0',
-    flex: 1,
+  container: {
+    height: '100%',
+    backgroundColor: '#f9f9f9',
+    justifyContent: 'space-between',
+    flexDirection: 'column'
   },
-  modalOpen:{
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    opacity:0.4
-  }
 });

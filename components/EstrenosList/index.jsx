@@ -1,15 +1,14 @@
 import React from 'react';
 import {
-  StyleSheet,
   FlatList,
 } from 'react-native';
-import ListMovies from './ListMovies';
+import ListEstrenos from './ListEstrenos';
 
-const List = ({ movieList, handleModal }) => {
+const List = ({movieList}) => {
   return (
     <FlatList
       data={movieList}
-      renderItem={(data) => <ListMovies handleModal={handleModal} data={data} />}
+      renderItem={(data) => <ListEstrenos data={data} />}
       keyExtractor={item => item.id}
     />
   );
