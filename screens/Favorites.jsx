@@ -4,8 +4,9 @@ import {StyleSheet} from 'react-native';
 import Modal from '../components/Modals/ConfirmModal';
 import FavoriteList from '../components/FavoriteList';
 import AddMovie from '../components/AddMovie';
+import FooterActions from '../components/Footer/FooterActions';
 
-export default function Favorites(){
+export default function Favorites({ navigation }){
     const [inputName, setInputName] = useState('');
     const [inputError, setInputError] = useState('');
     const [favoriteList, setFavoriteList] = useState([]);
@@ -85,6 +86,7 @@ export default function Favorites(){
             movieSelected={movieSelected}
             whichModal={whichModal}
             />
+            <FooterActions activeScreen='Favoritos' navigation={navigation}/>
         </View>
     )
 }

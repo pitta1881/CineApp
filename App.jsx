@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
 } from 'react-native';
 import {
@@ -9,11 +8,7 @@ import {
 } from '@expo-google-fonts/inter';
 import AppLoading from 'expo-app-loading';
 
-import Header from './components/Header/Header';
-import Home from './screens/Home';
-import Favorites from './screens/Favorites';
-import FooterActions from './components/Footer/FooterActions';
-import Estrenos from './screens/Estrenos';
+import BreadNavigator from './navigation/BreadNavigator';
 
 export default function App() {
   const [screen, setScreen] = useState('Home')
@@ -30,18 +25,7 @@ export default function App() {
   }
 
   return (
-     <SafeAreaView style={styles.container}>
-      <Header title="CineApp"/>
-      {
-        screen === 'Home' 
-        ? <Home />
-        : screen === 'Favoritos' 
-        ? <Favorites /> 
-        : screen === 'Estrenos' 
-        ? <Estrenos /> : ''
-      }
-      <FooterActions activeScreen={screen} handleSwitchScreen={handleSwitchScreen}/>
-    </SafeAreaView>
+      <BreadNavigator />
   );
 }
 

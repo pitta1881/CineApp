@@ -3,28 +3,28 @@ import { View, Text, Platform, StyleSheet, Button, Dimensions } from 'react-nati
 import Constants from 'expo-constants';
 import Colors from '../../constants/colors'
 
-const FooterActions = ({activeScreen, handleSwitchScreen}) => {
+const FooterActions = ({ activeScreen, navigation}) => {
   return (
     <View style={styles.footerActions}>
       <View style={styles.buttonFooter}>
         <Button
             title="Home"
             color={activeScreen === 'Home' ? "red": "#3D9970"}
-            onPress={()=>handleSwitchScreen('Home')}
+            onPress={() => navigation.navigate('Home')}
           />
       </View>
       <View style={styles.buttonFooter}>
         <Button
             title="Favoritos"
             color={activeScreen === 'Favoritos' ? "red": "#3D9970"}
-            onPress={()=>handleSwitchScreen('Favoritos')}
+            onPress={() => navigation.navigate('Favoritos')}
           />
       </View>
       <View style={styles.buttonFooter}>
         <Button
             title="Estrenos"
             color={activeScreen === 'Estrenos' ? "red": "#3D9970"}
-            onPress={()=>handleSwitchScreen('Estrenos')}
+            onPress={() => navigation.navigate('Estrenos')}
           />
       </View>
     </View>

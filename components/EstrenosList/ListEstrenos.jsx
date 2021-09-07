@@ -5,11 +5,15 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity
 } from 'react-native';
 
-const ListEstrenos = ({data}) => {
+const ListEstrenos = ({data, onSelected}) => {
   return (
     <View style={styles.item}>
+      <TouchableOpacity
+        onPress={() => onSelected(data.item)}
+      >
       <View style={styles.card}>
           <View style={styles.imageContainer}>
               <Image style={styles.imagen} source={data.item.url}/>
@@ -19,6 +23,7 @@ const ListEstrenos = ({data}) => {
               <Text>{data.item.dateEstreno}</Text>
           </View>
         </View>
+      </TouchableOpacity>
     </View>
   );
 }

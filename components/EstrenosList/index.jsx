@@ -4,11 +4,11 @@ import {
 } from 'react-native';
 import ListEstrenos from './ListEstrenos';
 
-const List = ({movieList}) => {
+const List = ({movieList, onSelected}) => {
   return (
     <FlatList
       data={movieList}
-      renderItem={(data) => <ListEstrenos data={data} />}
+      renderItem={(data) => <ListEstrenos data={data} onSelected={onSelected} />}
       keyExtractor={item => item.id}
     />
   );
