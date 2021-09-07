@@ -9,7 +9,6 @@ export default function Estrenos({ navigation }){
     const [movieList, setMovieList] = useState([]);
 
     const handleSelectedMovie = (item) => {
-        console.log(item)
         navigation.navigate('MovieDetails', {
           data: item,
         });
